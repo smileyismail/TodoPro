@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import TasksList from "../components/Tasks/TasksList";
@@ -6,7 +6,7 @@ import TasksList from "../components/Tasks/TasksList";
 import { tasksSliceActions } from "../store/tasksSlice";
 import {
   postTask,
-  // fetchTasks,
+  fetchTasks,
   deleteTask,
   updateTask,
 } from "../utils/taskhttp";
@@ -15,28 +15,28 @@ const TasksPage = () => {
   const tasks = useSelector((state) => state.tasksStore.tasks);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   let isMounted = true;
+  useEffect(() => {
+    let isMounted = true;
 
-  //   async function fetchAndSetTasks() {
-  //     try {
-  //       const tasks = await fetchTasks();
+    async function fetchAndSetTasks() {
+      try {
+        const tasks = await fetchTasks();
 
-  //       if (isMounted) {
-  //         dispatch(tasksSliceActions.setTasks(tasks));
-  //       }
-  //     } catch (err) {
-  //       console.error("Error while fetching tasks:", err);
-  //     }
-  //   }
+        if (isMounted) {
+          dispatch(tasksSliceActions.setTasks(tasks));
+        }
+      } catch (err) {
+        console.error("Error while fetching tasks:", err);
+      }
+    }
 
-  //   fetchAndSetTasks();
+    fetchAndSetTasks();
 
-  //   // Cleanup function to set the mounted state to false when the component unmounts
-  //   return () => {
-  //     isMounted = false;
-  //   };
-  // }, [dispatch]);
+    // Cleanup function to set the mounted state to false when the component unmounts
+    return () => {
+      isMounted = false;
+    };
+  }, [dispatch]);
 
   const addTaskHandler = async (taskData) => {
     try {
