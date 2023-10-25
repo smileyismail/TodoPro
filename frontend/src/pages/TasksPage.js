@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import TasksList from "../components/Tasks/TasksList";
@@ -6,7 +6,7 @@ import TasksList from "../components/Tasks/TasksList";
 import { tasksSliceActions } from "../store/tasksSlice";
 import {
   postTask,
-  fetchTasks,
+  // fetchTasks,
   deleteTask,
   updateTask,
 } from "../utils/taskhttp";
